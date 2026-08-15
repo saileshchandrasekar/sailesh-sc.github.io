@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sailesh SC | Mechanical Design Engineer</title>
+<meta name="description" content="Sailesh SC — Mechanical Engineering student specializing in CAD design, product development and manufacturing. Portfolio of projects, CAD gallery, certificates and internship experience.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ============ TOKENS ============ */
+:root{
+  --bg:#070b0f;
+  --bg-alt:#0c1319;
+  --panel:rgba(17,25,32,0.62);
+  --panel-solid:#0f161d;
+  --border:rgba(0,229,255,0.16);
+  --border-soft:rgba(0,229,255,0.08);
+  --grid-line:rgba(0,229,255,0.055);
+  --text:#e9f1f4;
+  --text-dim:#8ca0ab;
+  --text-faint:#5c6f79;
+  --accent:#00e0ff;
+  --accent-soft:rgba(0,224,255,0.12);
+  --accent-2:#ffb340;
+  --accent-2-soft:rgba(255,179,64,0.14);
+  --accent-3:#6ef2a8;
+  --accent-3-soft:rgba(110,242,168,0.14);
+  --shadow:0 20px 60px rgba(0,0,0,0.45);
+  --radius:14px;
+  --mono:'JetBrains Mono',monospace;
+  --display:'Space Grotesk',sans-serif;
+  --body:'Inter',sans-serif;
+}
+
+[data-theme="light"]{
+  --bg:#f3f6f8;
+  --bg-alt:#ffffff;
+  --panel:rgba(255,255,255,0.72);
+  --panel-solid:#ffffff;
+  --border:rgba(0,120,145,0.22);
+  --border-soft:rgba(0,120,145,0.12);
+  --grid-line:rgba(0,120,145,0.07);
+  --text:#0c1b22;
+  --text-dim:#48606b;
+  --text-faint:#84959d;
+  --accent:#00838f;
+  --accent-soft:rgba(0,131,143,0.10);
+  --accent-2:#c4750a;
+  --accent-2-soft:rgba(196,117,10,0.12);
+  --accent-3:#158a54;
+  --accent-3-soft:rgba(21,138,84,0.12);
+  --shadow:0 20px 50px rgba(20,40,50,0.12);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--body);
+  overflow-x:hidden;
+  transition:background .4s ease,color .4s ease;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size:42px 42px;
+}
+
+::selection{background:var(--accent);color:#000;}
+
+img{max-width:100%;display:block;}
+
+.container{max-width:1240px;margin:0 auto;padding:0 6%;}
+
+h1,h2,h3,h4{font-family:var(--display);letter-spacing:-0.02em;}
+
+a{color:inherit;}
+
+::-webkit-scrollbar{width:9px;}
+::-webkit-scrollbar-track{background:var(--bg-alt);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px;}
+
+/* ============ REVEAL ANIMATION ============ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:0.001ms !important;transition-duration:0.001ms !important;}
+}
+
+/* ============ HEADER / NAV ============ */
+header{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:1000;
+  padding:16px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(7,11,15,0.72);
+  backdrop-filter:blur(14px) saturate(140%);
+  border-bottom:1px solid var(--border-soft);
+  transition:background .4s ease,border-color .4s ease;
+}
+[data-theme="light"] header{background:rgba(255,255,255,0.72);}
+
+.logo{
+  font-family:var(--mono);
+  font-size:14px;
+  letter-spacing:.14em;
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.logo .dot{width:9px;height:9px;border:2px solid var(--accent);border-radius:2px;transform:rotate(45deg);display:inline-block;}
+.logo b{color:var(--accent);font-weight:700;}
+
+nav{display:flex;align-items:center;gap:6px;}
+
+nav a{
+  color:var(--text-dim);
+  text-decoration:none;
+  padding:8px 13px;
+  font-size:13px;
+  font-family:var(--mono);
+  letter-spacing:.03em;
+  border-radius:8px;
+  transition:.25s;
+  position:relative;
+}
+nav a:hover{color:var(--text);background:var(--accent-soft);}
+nav a.active{color:var(--accent);}
+
+.theme-toggle{
+  width:38px;height:38px;
+  border-radius:9px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  margin-left:8px;
+  color:var(--accent);
+  transition:.25s;
+  flex-shrink:0;
+}
+.theme-toggle:hover{border-color:var(--accent);}
+
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}
+.nav-toggle span{width:22px;height:2px;background:var(--text);border-radius:2px;}
+
+/* ============ HERO ============ */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  position:relative;
+  padding:140px 6% 80px;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(600px 400px at 85% 20%, var(--accent-soft), transparent 70%),
+    radial-gradient(500px 350px at 10% 80%, var(--accent-2-soft), transparent 70%);
+  pointer-events:none;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:60px;
+  align-items:center;
+  width:100%;
+  position:relative;
+  z-index:2;
+}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.18em;
+  color:var(--accent);
+  text-transform:uppercase;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:22px;
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--accent);}
+
+.hero-content h1{
+  font-size:clamp(40px,6vw,72px);
+  line-height:1.02;
+  font-weight:700;
+  color:var(--text);
+}
+.hero-content h1 span{color:var(--accent);}
+
+.hero-content h2{
+  font-size:clamp(17px,2vw,22px);
+  font-weight:400;
+  color:var(--text-dim);
+  margin-top:16px;
+  font-family:var(--body);
+}
+
+.hero-content p.lede{
+  max-width:560px;
+  margin:22px 0 34px;
+  line-height:1.85;
+  color:var(--text-dim);
+  font-size:15.5px;
+}
+
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:13px 26px;
+  font-size:14px;
+  font-weight:600;
+  border-radius:9px;
+  text-decoration:none;
+  transition:.25s;
+  cursor:pointer;
+  border:1px solid transparent;
+  font-family:var(--body);
+}
+.btn-primary{background:var(--accent);color:#00181d;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 26px var(--accent-soft);}
+.btn-outline{border-color:var(--border);color:var(--text);background:var(--panel);}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
+.btn-sm{padding:9px 18px;font-size:12.5px;}
+
+/* title-block hero card */
+.titleblock{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--panel);
+  backdrop-filter:blur(10px);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  position:relative;
+}
+.titleblock::before,.titleblock::after{
+  content:"";position:absolute;width:16px;height:16px;
+  border-color:var(--accent);border-style:solid;opacity:.7;
+}
+.titleblock::before{top:-1px;left:-1px;border-width:2px 0 0 2px;}
+.titleblock::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0;}
+
+.titleblock img{width:100%;height:300px;object-fit:cover;border-bottom:1px solid var(--border);}
+.tb-photo-placeholder{
+  width:100%;height:300px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:
+    repeating-linear-gradient(45deg, var(--border-soft), var(--border-soft) 1px, transparent 1px, transparent 12px);
+  border-bottom:1px solid var(--border);
+  color:var(--text-faint);
+  gap:10px;
+}
+.tb-rows{padding:0;}
+.tb-row{
+  display:grid;grid-template-columns:110px 1fr;
+  border-top:1px solid var(--border-soft);
+  font-family:var(--mono);
+  font-size:12.5px;
+}
+.tb-row:first-child{border-top:none;}
+.tb-row .k{padding:12px 14px;color:var(--text-faint);letter-spacing:.05em;border-right:1px solid var(--border-soft);}
+.tb-row .v{padding:12px 14px;color:var(--text);}
+
+/* ============ SECTION SHELL ============ */
+section{padding:110px 6% 90px;position:relative;}
+.section-head{text-align:center;margin-bottom:56px;}
+.section-eyebrow{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.18em;
+  color:var(--accent);
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+.section-title{font-size:clamp(28px,4vw,42px);font-weight:700;}
+.section-sub{color:var(--text-dim);max-width:560px;margin:14px auto 0;font-size:15px;line-height:1.75;}
+
+/* ============ ABOUT ============ */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:32px;
+  border-radius:var(--radius);
+  transition:.35s;
+  backdrop-filter:blur(8px);
+}
+.card:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:var(--shadow);}
+.card h3{font-size:18px;margin-bottom:14px;color:var(--accent);}
+.card p{color:var(--text-dim);line-height:1.85;font-size:14.5px;}
+.card ul{color:var(--text-dim);line-height:1.9;font-size:14.5px;padding-left:18px;}
+
+/* ============ SKILLS ============ */
+.skills-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;}
+.skill{
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:22px 18px;
+  border-radius:12px;
+  text-align:center;
+  transition:.3s;
+  font-family:var(--mono);
+  font-size:13px;
+  letter-spacing:.03em;
+}
+.skill:hover{border-color:var(--accent);transform:translateY(-4px);color:var(--accent);}
+.skill .icon{font-size:26px;display:block;margin-bottom:10px;}
+
+/* ============ TABS (used by gallery + certificates) ============ */
+.tabbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:44px;}
+.tab-btn{
+  font-family:var(--mono);
+  font-size:12.5px;
+  letter-spacing:.03em;
+  padding:10px 18px;
+  border-radius:30px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text-dim);
+  cursor:pointer;
+  transition:.25s;
+}
+.tab-btn:hover{color:var(--text);border-color:var(--accent);}
+.tab-btn.active{background:var(--accent);color:#00181d;border-color:var(--accent);font-weight:600;}
+.tab-count{opacity:.6;margin-left:5px;}
+
+/* ============ DESIGN GALLERY ============ */
+.gallery-panel{display:none;}
+.gallery-panel.active{display:block;animation:fadein .5s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px;}
+
+.design-card{
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--border);
+  background:var(--panel);
+  cursor:pointer;
+  position:relative;
+  transition:.4s;
+}
+.design-card:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:var(--accent);}
+
+.design-thumb{
+  height:190px;
+  position:relative;
+  overflow:hidden;
+  background:
+    repeating-linear-gradient(135deg, var(--border-soft), var(--border-soft) 1px, transparent 1px, transparent 14px),
+    var(--bg-alt);
+  display:flex;align-items:center;justify-content:center;
+}
+.design-thumb img{width:100%;height:100%;object-fit:contain;background:#f4f6f7;transition:transform .5s ease;}
+.design-card:hover .design-thumb img{transform:scale(1.08);}
+
+.design-thumb .ph-icon{color:var(--text-faint);font-size:34px;}
+
+.design-overlay{
+  position:absolute;inset:0;
+  background:rgba(0,10,14,0.55);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:.3s;
+  color:#fff;font-size:26px;
+}
+.design-card:hover .design-overlay{opacity:1;}
+
+.software-tag{
+  position:absolute;top:10px;left:10px;
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.05em;
+  padding:5px 10px;
+  border-radius:20px;
+  background:rgba(0,0,0,0.55);
+  color:var(--accent);
+  border:1px solid var(--accent);
+  backdrop-filter:blur(4px);
+  z-index:2;
+}
+[data-theme="light"] .software-tag{background:rgba(255,255,255,0.75);}
+
+.design-meta{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;}
+.design-meta .name{font-family:var(--mono);font-size:13px;color:var(--text);}
+.design-meta .badge{font-size:11px;color:var(--text-faint);}
+
+.upload-hint{
+  text-align:center;
+  margin-top:34px;
+  padding:18px;
+  border:1px dashed var(--border);
+  border-radius:12px;
+  color:var(--text-faint);
+  font-size:12.5px;
+  font-family:var(--mono);
+}
+
+/* ============ PROJECTS ============ */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:26px;}
+
+.project{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:.35s;
+}
+.project:hover{border-color:var(--accent);box-shadow:var(--shadow);}
+.project-top{padding:26px 26px 0;}
+.project-tags{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.tag{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.05em;
+  padding:5px 11px;
+  border-radius:20px;
+  text-transform:uppercase;
+}
+.tag-status-ongoing{background:var(--accent-2-soft);color:var(--accent-2);border:1px solid var(--accent-2);}
+.tag-status-dev{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);}
+.tag-status-done{background:var(--accent-3-soft);color:var(--accent-3);border:1px solid var(--accent-3);}
+.tag-type{background:transparent;color:var(--text-dim);border:1px solid var(--border);}
+
+.project h3{font-size:19px;margin-bottom:10px;line-height:1.3;}
+.project p{color:var(--text-dim);font-size:14px;line-height:1.8;padding:0 26px;}
+.project-body{padding:0 26px 26px;}
+
+.project-detail-toggle{
+  margin:16px 26px 26px;
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--accent);
+  background:none;
+  border:1px solid var(--border);
+  padding:9px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.25s;
+}
+.project-detail-toggle:hover{border-color:var(--accent);}
+
+.project-details{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .5s ease;
+  padding:0 26px;
+}
+.project-details.open{max-height:2600px;padding-bottom:26px;}
+
+.detail-block{margin-top:20px;}
+.detail-block h4{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.08em;
+  color:var(--accent);
+  text-transform:uppercase;
+  margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.detail-block h4::before{content:"";width:16px;height:1px;background:var(--accent);}
+.detail-block p, .detail-block li{color:var(--text-dim);font-size:13.5px;line-height:1.85;}
+.detail-block ul{padding-left:18px;}
+
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{
+  font-family:var(--mono);
+  font-size:11.5px;
+  padding:6px 12px;
+  border-radius:7px;
+  background:var(--bg-alt);
+  border:1px solid var(--border-soft);
+  color:var(--text-dim);
+}
+
+.result-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px;}
+.result-table th,.result-table td{
+  border:1px solid var(--border-soft);
+  padding:9px 12px;
+  text-align:left;
+  color:var(--text-dim);
+  font-family:var(--mono);
+}
+.result-table th{color:var(--accent);font-weight:500;background:var(--bg-alt);}
+
+.img-placeholder-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-top:10px;}
+.img-placeholder{
+  aspect-ratio:4/3;
+  border:1px dashed var(--border);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-faint);
+  font-size:20px;
+  background:var(--bg-alt);
+}
+
+/* ============ FEATURED (home) ============ */
+.featured-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:26px;}
+.feature-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:30px;
+  transition:.4s;
+  position:relative;
+  overflow:hidden;
+}
+.feature-card::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg, var(--accent-soft), transparent 60%);
+  opacity:0;transition:.4s;
+}
+.feature-card:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:var(--accent);}
+.feature-card:hover::after{opacity:1;}
+.feature-card .num{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.1em;}
+.feature-card h3{font-size:20px;margin:12px 0 10px;position:relative;z-index:1;}
+.feature-card p{color:var(--text-dim);font-size:14px;line-height:1.8;margin-bottom:20px;position:relative;z-index:1;}
+
+/* ============ CERTIFICATES ============ */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px;}
+.cert-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  cursor:pointer;
+  transition:.35s;
+}
+.cert-card:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:var(--accent);}
+.cert-card img{width:100%;height:210px;object-fit:cover;object-position:top;border-bottom:1px solid var(--border);}
+.cert-info{padding:16px 18px;}
+.cert-info .cat{font-family:var(--mono);font-size:10.5px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;}
+.cert-info h4{font-size:15px;margin:8px 0 6px;}
+.cert-info p{font-size:12.5px;color:var(--text-dim);line-height:1.6;}
+
+.cert-card.placeholder{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:280px;
+  border-style:dashed;
+  color:var(--text-faint);
+  gap:10px;
+  text-align:center;
+  padding:20px;
+}
+.cert-card.placeholder .plus{font-size:30px;color:var(--accent);}
+.cert-card.placeholder span{font-family:var(--mono);font-size:12px;}
+
+/* ============ TIMELINE (internship) ============ */
+.timeline{position:relative;max-width:800px;margin:0 auto;}
+.timeline::before{content:"";position:absolute;left:20px;top:6px;bottom:6px;width:2px;background:var(--border);}
+.timeline-item{position:relative;padding-left:60px;margin-bottom:36px;}
+.timeline-item::before{
+  content:"";position:absolute;left:12px;top:6px;
+  width:18px;height:18px;border-radius:4px;
+  border:2px solid var(--accent);background:var(--bg);
+  transform:rotate(45deg);
+}
+.timeline-card{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:12px;padding:22px 24px;transition:.3s;
+}
+.timeline-card:hover{border-color:var(--accent);}
+.timeline-card .period{font-family:var(--mono);font-size:11.5px;color:var(--accent);letter-spacing:.05em;}
+.timeline-card h3{font-size:17px;margin:8px 0 4px;}
+.timeline-card .org{color:var(--text-dim);font-size:13px;margin-bottom:10px;}
+.timeline-card p{color:var(--text-dim);font-size:13.5px;line-height:1.8;}
+
+/* ============ CONTACT ============ */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;}
+.contact-card{
+  background:var(--panel);border:1px solid var(--border);
+  padding:28px 20px;border-radius:var(--radius);text-align:center;
+  transition:.3s;
+}
+.contact-card:hover{border-color:var(--accent);transform:translateY(-6px);}
+.contact-card .ico{font-size:24px;margin-bottom:12px;color:var(--accent);}
+.contact-card a{text-decoration:none;color:var(--text);font-size:14px;}
+
+/* ============ LIGHTBOX ============ */
+.lightbox{
+  display:none;position:fixed;inset:0;z-index:3000;
+  background:rgba(0,0,0,0.92);
+  align-items:center;justify-content:center;padding:30px;
+}
+.lightbox.active{display:flex;animation:fadein .3s ease;}
+.lightbox img{max-width:100%;max-height:92vh;border-radius:10px;box-shadow:0 0 60px rgba(0,224,255,0.2);}
+.lightbox-close{
+  position:absolute;top:22px;right:30px;font-size:34px;color:var(--accent);cursor:pointer;
+  width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--accent);border-radius:8px;
+}
+
+/* ============ FOOTER ============ */
+footer{
+  text-align:center;padding:40px 6%;
+  background:var(--bg-alt);
+  border-top:1px solid var(--border-soft);
+  color:var(--text-faint);font-size:13px;
+  font-family:var(--mono);
+}
+footer .fline{margin-top:8px;font-size:11.5px;}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;}
+  .about-grid{grid-template-columns:1fr;}
+}
+
+@media(max-width:768px){
+  nav{
+    position:fixed;top:64px;right:0;left:0;
+    background:var(--bg-alt);
+    flex-direction:column;
+    align-items:stretch;
+    padding:14px 6%;
+    border-bottom:1px solid var(--border-soft);
+    transform:translateY(-130%);
+    transition:transform .35s ease;
+    gap:2px;
+  }
+  nav.open{transform:translateY(0);}
+  nav a{padding:12px 8px;border-bottom:1px solid var(--border-soft);border-radius:0;}
+  .nav-toggle{display:flex;}
+  .theme-toggle{margin-left:auto;}
+  section{padding:80px 6% 60px;}
+  .hero{padding-top:110px;}
+}
+
+</style>
+</head>
+
+<body data-theme="dark">
+
+<header>
+  <div class="logo"><span class="dot"></span>SAILESH <b>SC</b></div>
+
+  <div class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </div>
+
+  <nav id="mainNav">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#gallery">Design Gallery</a>
+    <a href="#projects">Projects</a>
+    <a href="#certificates">Certificates</a>
+    <a href="#internship">Internship Experience</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <button class="theme-toggle" id="themeToggle" title="Toggle light / dark mode" aria-label="Toggle theme">◐</button>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-grid">
+
+    <div class="hero-content">
+      <div class="eyebrow">Mechanical Design Engineer · Rev 2026</div>
+      <h1>SAILESH <span>SC</span></h1>
+      <h2>CAD Designer · Product Developer · Manufacturing Enthusiast</h2>
+      <p class="lede">
+        Final year Mechanical Engineering student building precise, manufacturable designs —
+        from hybrid composite materials to AI-assisted humanoid robotics. Proficient across
+        AutoCAD, SolidWorks, CATIA V5, Fusion 360 and Siemens NX, with hands-on internship
+        experience in compressor and industrial design.
+      </p>
+      <div class="hero-actions">
+        <a href="Sailesh_SC_Resume.pdf" class="btn btn-primary" target="_blank" rel="noopener" download>↓ Download Resume</a>
+        <a href="#projects" class="btn btn-outline">View Projects</a>
+        <a href="#gallery" class="btn btn-outline">Design Gallery</a>
+      </div>
+    </div>
+
+    <div class="titleblock reveal">
+      <img src="images/profile/sailesh-profile.jpg" alt="Sailesh SC" style="width:100%;height:300px;object-fit:cover;object-position:top center;border-bottom:1px solid var(--border);">
+      <div class="tb-rows">
+        <div class="tb-row"><div class="k">NAME</div><div class="v">Sailesh S C</div></div>
+        <div class="tb-row"><div class="k">DISCIPLINE</div><div class="v">Mechanical Engineering</div></div>
+        <div class="tb-row"><div class="k">INSTITUTION</div><div class="v">Kangeyam Institute of Technology</div></div>
+        <div class="tb-row"><div class="k">CGPA</div><div class="v">8.24 / 10</div></div>
+        <div class="tb-row"><div class="k">FOCUS</div><div class="v">CAD · DFM · Product Design</div></div>
+        <div class="tb-row"><div class="k">STATUS</div><div class="v">Open to Internships / Placement</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">01 — Profile</div>
+    <h2 class="section-title">About Me</h2>
+  </div>
+
+  <div class="about-grid">
+    <div class="card reveal">
+      <h3>Profile</h3>
+      <p>
+        Final Year Mechanical Engineering student with hands-on experience in CAD Design,
+        Product Development, Manufacturing Processes and Design for Manufacturing (DFM).
+        Proficient in AutoCAD, SolidWorks, CATIA V5, Fusion 360 and Siemens NX — with a
+        growing focus on sustainable materials and interdisciplinary robotics projects.
+      </p>
+    </div>
+
+    <div class="card reveal">
+      <h3>Education</h3>
+      <p>
+        <strong>BE Mechanical Engineering</strong><br>
+        Kangeyam Institute of Technology<br>
+        CGPA: 8.24 / 10 · Reg No. 23LMEC202
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">02 — Capability</div>
+    <h2 class="section-title">Skills</h2>
+    <p class="section-sub">Core software and engineering competencies developed through coursework, competitions and internships.</p>
+  </div>
+
+  <div class="skills-wrap">
+    <div class="skill reveal"><span class="icon">◧</span>AutoCAD</div>
+    <div class="skill reveal"><span class="icon">⬡</span>SolidWorks</div>
+    <div class="skill reveal"><span class="icon">◈</span>CATIA V5</div>
+    <div class="skill reveal"><span class="icon">△</span>Fusion 360</div>
+    <div class="skill reveal"><span class="icon">▣</span>Siemens NX</div>
+    <div class="skill reveal"><span class="icon">⚙</span>DFM</div>
+    <div class="skill reveal"><span class="icon">⛭</span>Manufacturing</div>
+    <div class="skill reveal"><span class="icon">◫</span>Product Design</div>
+  </div>
+</section>
+
+<!-- ============ DESIGN GALLERY ============ -->
+<section id="gallery">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">03 — CAD Portfolio</div>
+    <h2 class="section-title">Design Gallery</h2>
+    <p class="section-sub">CAD work organised by software platform. Click any design to view it full-screen.</p>
+  </div>
+
+  <div class="tabbar" id="galleryTabs">
+    <button class="tab-btn active" data-target="fusion">Autodesk Fusion 360</button>
+    <button class="tab-btn" data-target="solidworks">SolidWorks</button>
+    <button class="tab-btn" data-target="autocad">AutoCAD</button>
+    <button class="tab-btn" data-target="catia">CATIA</button>
+    <button class="tab-btn" data-target="nx">Siemens NX</button>
+  </div>
+
+  <div class="gallery-panel active" id="panel-fusion" data-software="Fusion 360"></div>
+  <div class="gallery-panel" id="panel-solidworks" data-software="SolidWorks"></div>
+  <div class="gallery-panel" id="panel-autocad" data-software="AutoCAD"></div>
+  <div class="gallery-panel" id="panel-catia" data-software="CATIA"></div>
+  <div class="gallery-panel" id="panel-nx" data-software="Siemens NX"></div>
+
+  <div class="upload-hint">◧ Design slots are ready to receive images — upload CAD renders for each software category to populate this gallery.</div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">04 — Engineering Work</div>
+    <h2 class="section-title">Projects</h2>
+    <p class="section-sub">Research, design and interdisciplinary builds — from materials engineering to robotics.</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- PROJECT: COMPOSITE -->
+    <div class="project reveal" id="project-composite">
+      <div class="project-top">
+        <div class="project-tags">
+          <span class="tag tag-status-ongoing">Ongoing</span>
+          <span class="tag tag-type">Final Year Project</span>
+        </div>
+        <h3>Fabrication and Mechanical Characterization of Hybrid Natural Fibre Composite Reinforced with Natural Fillers</h3>
+      </div>
+      <p>
+        Fabrication and mechanical characterization of hybrid natural fibre composite materials
+        reinforced with natural fillers, aimed at developing eco-friendly composites with improved
+        mechanical properties and reduced environmental impact.
+      </p>
+
+      <button class="project-detail-toggle" onclick="toggleDetails('details-composite', this)">+ View Full Details</button>
+
+      <div class="project-details" id="details-composite">
+
+        <div class="detail-block">
+          <h4>Overview</h4>
+          <p>
+            This final-year major project investigates hybrid natural fibre composites as a
+            sustainable alternative to synthetic-fibre reinforced materials, targeting comparable
+            mechanical performance with a lower environmental footprint.
+          </p>
+        </div>
+
+        <div class="detail-block">
+          <h4>Materials Used</h4>
+          <div class="chip-row">
+            <span class="chip">Natural fibres (hybrid combination)</span>
+            <span class="chip">Natural fillers</span>
+            <span class="chip">Polymer matrix resin</span>
+            <span class="chip">Hardener / curing agent</span>
+          </div>
+        </div>
+
+        <div class="detail-block">
+          <h4>Testing Methodology</h4>
+          <ul>
+            <li>Tensile testing — UTM, per ASTM standards</li>
+            <li>Flexural testing — three-point bend test</li>
+            <li>Impact testing — Izod / Charpy</li>
+            <li>Hardness testing — Shore / Rockwell as applicable</li>
+          </ul>
+        </div>
+
+        <div class="detail-block">
+          <h4>Expected Outcomes</h4>
+          <p>
+            An eco-friendly composite formulation with mechanical properties suitable for
+            light-load structural and non-structural engineering applications, along with a
+            documented comparison of hybrid fibre-filler ratios against baseline composites.
+          </p>
+        </div>
+
+        <div class="detail-block">
+          <h4>Mechanical Testing Results (placeholder)</h4>
+          <table class="result-table">
+            <tr><th>Test</th><th>Property</th><th>Result</th></tr>
+            <tr><td>Tensile</td><td>Ultimate Tensile Strength</td><td>— pending</td></tr>
+            <tr><td>Flexural</td><td>Flexural Strength</td><td>— pending</td></tr>
+            <tr><td>Impact</td><td>Impact Energy</td><td>— pending</td></tr>
+            <tr><td>Hardness</td><td>Surface Hardness</td><td>— pending</td></tr>
+          </table>
+        </div>
+
+        <div class="detail-block">
+          <h4>Project Images (placeholder)</h4>
+          <div class="img-placeholder-row">
+            <div class="img-placeholder">🖼</div>
+            <div class="img-placeholder">🖼</div>
+            <div class="img-placeholder">🖼</div>
+            <div class="img-placeholder">🖼</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PROJECT: HUMANOID ROBOT -->
+    <div class="project reveal" id="project-robot">
+      <div class="project-top">
+        <div class="project-tags">
+          <span class="tag tag-status-dev">In Development</span>
+          <span class="tag tag-type">AI & Robotics</span>
+        </div>
+        <h3>AI-Based Humanoid Robot Design and Fabrication for MSME Applications</h3>
+      </div>
+      <p>
+        Interdisciplinary project with the Electronics and Communication Engineering department —
+        designing and fabricating an AI-enabled humanoid robot to assist MSMEs through intelligent
+        interaction, automation support, monitoring and task execution.
+      </p>
+
+      <button class="project-detail-toggle" onclick="toggleDetails('details-robot', this)">+ View Full Details</button>
+
+      <div class="project-details" id="details-robot">
+
+        <div class="detail-block">
+          <h4>Project Overview</h4>
+          <p>
+            A collaborative Mechanical + ECE build focused on a humanoid platform capable of
+            assisting small and medium enterprises — combining mechanical structure, embedded
+            electronics and AI-driven interaction into one working system.
+          </p>
+        </div>
+
+        <div class="detail-block">
+          <h4>CAD Design Section</h4>
+          <p>Full-body humanoid structure modelled for balance, joint articulation and serviceability, with iterative design reviews for weight distribution and manufacturability.</p>
+        </div>
+
+        <div class="detail-block">
+          <h4>Fabrication Section</h4>
+          <p>Structural components fabricated using lightweight materials, with mechanical joints designed to interface directly with servo/actuator assemblies.</p>
+        </div>
+
+        <div class="detail-block">
+          <h4>Electronics Integration</h4>
+          <div class="chip-row">
+            <span class="chip">AI-assisted interaction</span>
+            <span class="chip">Embedded systems</span>
+            <span class="chip">Sensor implementation</span>
+            <span class="chip">Automation support</span>
+          </div>
+        </div>
+
+        <div class="detail-block">
+          <h4>Future Scope</h4>
+          <ul>
+            <li>Deployment for MSME monitoring and light task execution</li>
+            <li>Expanded sensor suite for industrial safety applications</li>
+            <li>Voice/vision-based interaction for shop-floor assistance</li>
+          </ul>
+        </div>
+
+        <div class="detail-block">
+          <h4>Project Images (placeholder)</h4>
+          <div class="img-placeholder-row">
+            <div class="img-placeholder">🖼</div>
+            <div class="img-placeholder">🖼</div>
+            <div class="img-placeholder">🖼</div>
+            <div class="img-placeholder">🖼</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Existing projects -->
+    <div class="project reveal">
+      <div class="project-top">
+        <div class="project-tags">
+          <span class="tag tag-status-done">Completed</span>
+          <span class="tag tag-type">Restoration</span>
+        </div>
+        <h3>Go Kart Restoration</h3>
+      </div>
+      <p style="padding-bottom:26px;">
+        Diagnosed and repaired a non-operational Go Kart, restoring it to full working condition.
+        Won First Prize at the National Science Day Project Expo.
+      </p>
+    </div>
+
+    <div class="project reveal">
+      <div class="project-top">
+        <div class="project-tags">
+          <span class="tag tag-status-done">Completed</span>
+          <span class="tag tag-type">Design Challenge</span>
+        </div>
+        <h3>ICT / India Design Week Challenge</h3>
+      </div>
+      <p style="padding-bottom:26px;">
+        Selected and participated in the Autodesk-powered 24-Hour Design Challenge during
+        India Design Week — South, at Sri Ramakrishna Engineering College, Coimbatore.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FEATURED (visually placed after projects for flow, linked from nav/home) ============ -->
+<section id="featured" style="padding-top:0;">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">Spotlight</div>
+    <h2 class="section-title">Featured Projects</h2>
+  </div>
+
+  <div class="featured-grid">
+    <div class="feature-card reveal">
+      <div class="num">FEATURED · 01</div>
+      <h3>Hybrid Natural Fibre Composite</h3>
+      <p>Eco-friendly composite materials engineered and mechanically tested for real-world structural viability — tensile, flexural, impact and hardness evaluation.</p>
+      <a href="#project-composite" class="btn btn-outline btn-sm">View Details →</a>
+    </div>
+
+    <div class="feature-card reveal">
+      <div class="num">FEATURED · 02</div>
+      <h3>AI-Based Humanoid Robot</h3>
+      <p>An interdisciplinary Mechanical + ECE build — humanoid structure, embedded electronics and AI interaction designed for MSME industrial support.</p>
+      <a href="#project-robot" class="btn btn-outline btn-sm">View Details →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CERTIFICATES ============ -->
+<section id="certificates">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">05 — Verification</div>
+    <h2 class="section-title">Certificates</h2>
+    <p class="section-sub">Filter by category. Click any certificate to view it full-screen.</p>
+  </div>
+
+  <div class="tabbar" id="certFilters">
+    <button class="tab-btn active" data-filter="all">All</button>
+    <button class="tab-btn" data-filter="internship">Internship</button>
+    <button class="tab-btn" data-filter="workshop">Workshop</button>
+    <button class="tab-btn" data-filter="competition">Competition</button>
+    <button class="tab-btn" data-filter="industrial">Industrial Visit</button>
+    <button class="tab-btn" data-filter="training">Training</button>
+    <button class="tab-btn" data-filter="participation">Participation</button>
+  </div>
+
+  <div class="cert-grid" id="certGrid">
+
+    <div class="cert-card" data-cat="competition" onclick="openLightbox('images/certificates/idw-2026.jpeg')">
+      <img src="images/certificates/idw-2026.jpeg" alt="India Design Week 2026 Certificate">
+      <div class="cert-info">
+        <span class="cat">Competition</span>
+        <h4>India Design Week 2026</h4>
+        <p>Autodesk Fusion 24-Hour Challenge · Sri Ramakrishna Engineering College</p>
+      </div>
+    </div>
+
+    <div class="cert-card" data-cat="competition" onclick="openLightbox('images/certificates/kit-gokart.jpeg')">
+      <img src="images/certificates/kit-gokart.jpeg" alt="Project Expo Certificate">
+      <div class="cert-info">
+        <span class="cat">Competition</span>
+        <h4>Project Expo 2k26 — 1st Place</h4>
+        <p>National Science Day, STEM Explorers Club · KIT</p>
+      </div>
+    </div>
+
+    <div class="cert-card" data-cat="competition" onclick="openLightbox('images/certificates/kit-cad-modelling.jpeg')">
+      <img src="images/certificates/kit-cad-modelling.jpeg" alt="CAD Modelling Certificate">
+      <div class="cert-info">
+        <span class="cat">Competition</span>
+        <h4>Mech Conclave '25 — 3rd Place</h4>
+        <p>CAD Modeling, Intra-Department Event · KIT</p>
+      </div>
+    </div>
+
+    <div class="cert-card" data-cat="competition" onclick="openLightbox('images/certificates/kec-cad-master.jpeg')">
+      <img src="images/certificates/kec-cad-master.jpeg" alt="KEC CAD Master Certificate">
+      <div class="cert-info">
+        <span class="cat">Competition</span>
+        <h4>MXCEL 2K26</h4>
+        <p>CAD Master & Quiz Mania · Kongu Engineering College</p>
+      </div>
+    </div>
+
+    <div class="cert-card" data-cat="workshop" onclick="openLightbox('images/certificates/kec-workshop.jpeg')">
+      <img src="images/certificates/kec-workshop.jpeg" alt="3D Printing Workshop Certificate">
+      <div class="cert-info">
+        <span class="cat">Workshop</span>
+        <h4>3D Printing Technology Workshop</h4>
+        <p>MXCEL 2K26 National Technical Symposium · KEC</p>
+      </div>
+    </div>
+
+    <div class="cert-card" data-cat="workshop" onclick="openLightbox('images/certificates/esec-workshop.jpeg')">
+      <img src="images/certificates/esec-workshop.jpeg" alt="ESEC Workshop Certificate">
+      <div class="cert-info">
+        <span class="cat">Workshop</span>
+        <h4>Sensors & AI Methods Seminar</h4>
+        <p>BRNS Sponsored National Seminar · Erode Sengunthar Engineering College</p>
+      </div>
+    </div>
+
+    <div class="cert-card" data-cat="training" onclick="openLightbox('images/certificates/femsoft.jpeg')">
+      <img src="images/certificates/femsoft.jpeg" alt="FEMSOFT MetaARC Certificate">
+      <div class="cert-info">
+        <span class="cat">Training</span>
+        <h4>MetaARC — Computational Programming</h4>
+        <p>1D Analytical, FEM & AI Training · Femsoft Technologies & Metasage Alliance</p>
+      </div>
+    </div>
+
+    <div class="cert-card" data-cat="internship" onclick="openLightbox('images/certificates/prs-intern.jpeg')">
+      <img src="images/certificates/prs-intern.jpeg" alt="PRS Compressors Internship Certificate">
+      <div class="cert-info">
+        <span class="cat">Internship</span>
+        <h4>Internship — Compressor Design</h4>
+        <p>PRS Compressors Private Limited · Jul 2025</p>
+      </div>
+    </div>
+
+    <div class="cert-card" data-cat="internship" onclick="openLightbox('images/certificates/cew-intern.jpeg')">
+      <img src="images/certificates/cew-intern.jpeg" alt="Coral Engineering Works Internship Certificate">
+      <div class="cert-info">
+        <span class="cat">Internship</span>
+        <h4>Internship — Manufacturing & Quality (Coil)</h4>
+        <p>Coral Engineering Works India Pvt Ltd · Jul 2026</p>
+      </div>
+    </div>
+
+    <!-- Placeholder cards for categories awaiting uploads -->
+    <div class="cert-card placeholder" data-cat="industrial">
+      <span class="plus">+</span>
+      <span>Industrial Visit certificate slot — awaiting upload</span>
+    </div>
+
+    <div class="cert-card placeholder" data-cat="participation">
+      <span class="plus">+</span>
+      <span>Participation certificate slot — awaiting upload</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ INTERNSHIP EXPERIENCE ============ -->
+<section id="internship">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">06 — Industry Exposure</div>
+    <h2 class="section-title">Internship Experience</h2>
+    <p class="section-sub">Hands-on industrial experience in design and manufacturing environments.</p>
+  </div>
+
+  <div class="timeline">
+
+    <div class="timeline-item reveal">
+      <div class="timeline-card">
+        <div class="period">01 JUL 2026 — 17 JUL 2026</div>
+        <h3>Manufacturing & Quality Intern</h3>
+        <div class="org">Coral Engineering Works India Private Limited, Erode</div>
+        <p>Observed and trained in coil manufacturing processes, quality inspection, and dimensional accuracy checks. Gained exposure to production workflow and QC practices — no design work involved. Performance reviewed as good by the organisation.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-card">
+        <div class="period">01 JUL 2025 — 15 JUL 2025</div>
+        <h3>Compressor Design Intern</h3>
+        <div class="org">PRS Compressors Private Limited, Tirupur</div>
+        <p>Assigned to the Compressor Designing team, working on tasks related to production. Recognised for being punctual, enthusiastic and dedicated, with strong willingness to learn.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="section-head reveal">
+    <div class="section-eyebrow">07 — Reach Out</div>
+    <h2 class="section-title">Contact</h2>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-card reveal">
+      <div class="ico">☎</div>
+      <a href="tel:+918778745383">+91 87787 45383</a>
+    </div>
+    <div class="contact-card reveal">
+      <div class="ico">✉</div>
+      <a href="mailto:saileshchandrasekar2463@gmail.com">saileshchandrasekar2463@gmail.com</a>
+    </div>
+    <div class="contact-card reveal">
+      <div class="ico">in</div>
+      <a href="https://www.linkedin.com/in/sailesh-sc-898b86327" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Sailesh SC — Mechanical Design Engineer</p>
+  <p class="fline">Built for internship, placement & industry recruitment</p>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-close" onclick="closeLightbox(event)">&times;</div>
+  <img id="lightbox-img" src="" alt="Full-screen preview">
+</div>
+
+<script>
+
+/* ---------- THEME TOGGLE ---------- */
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+function setTheme(t){
+  body.setAttribute('data-theme', t);
+  themeToggle.textContent = t === 'dark' ? '◐' : '◑';
+  try{ localStorage.setItem('portfolio-theme', t); }catch(e){}
+}
+let savedTheme = 'dark';
+try{ savedTheme = localStorage.getItem('portfolio-theme') || 'dark'; }catch(e){}
+setTheme(savedTheme);
+themeToggle.addEventListener('click', ()=>{
+  setTheme(body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ---------- MOBILE NAV ---------- */
+const navToggle = document.getElementById('navToggle');
+const mainNav = document.getElementById('mainNav');
+navToggle.addEventListener('click', ()=> mainNav.classList.toggle('open'));
+mainNav.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> mainNav.classList.remove('open')));
+
+/* ---------- SCROLL REVEAL ---------- */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:0.12});
+revealEls.forEach(el=> io.observe(el));
+
+/* ---------- ACTIVE NAV ON SCROLL ---------- */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll', ()=>{
+  let current = '';
+  sections.forEach(sec=>{
+    const top = sec.offsetTop - 120;
+    if(window.scrollY >= top) current = sec.getAttribute('id');
+  });
+  navLinks.forEach(a=>{
+    a.classList.toggle('active', a.getAttribute('href') === '#'+current);
+  });
+});
+
+/* ---------- LIGHTBOX ---------- */
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+function closeLightbox(e){
+  document.getElementById('lightbox').classList.remove('active');
+}
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLightbox(); });
+
+/* ---------- PROJECT DETAILS TOGGLE ---------- */
+function toggleDetails(id, btn){
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+  btn.textContent = el.classList.contains('open') ? '− Hide Full Details' : '+ View Full Details';
+}
+
+/* ---------- DESIGN GALLERY: build slots per software from uploaded images ---------- */
+const galleryData = {
+  fusion: [
+    'images/gallery/fusion-1.png',
+    'images/gallery/fusion-2.png',
+    'images/gallery/fusion-3.png',
+    'images/gallery/fusion-4.png',
+    'images/gallery/fusion-5.png',
+    'images/gallery/fusion-6.png'
+  ],
+  solidworks: [
+    'images/gallery/sw-1.png',
+    'images/gallery/sw-2.png',
+    'images/gallery/sw-3.png',
+    'images/gallery/sw-4.png',
+    'images/gallery/sw-5.png'
+  ],
+  autocad: [
+    'images/gallery/autocad-1.png',
+    'images/gallery/autocad-2.png',
+    'images/gallery/autocad-3.png'
+  ],
+  catia: [
+    'images/gallery/catia-1.png',
+    'images/gallery/catia-2.png',
+    'images/gallery/catia-3.png'
+  ],
+  nx: [
+    'images/gallery/nx-1.png'
+  ]
+};
+
+const softwareList = ['fusion','solidworks','autocad','catia','nx'];
+softwareList.forEach(key=>{
+  const panel = document.getElementById('panel-'+key);
+  const softwareName = panel.getAttribute('data-software');
+  const grid = document.createElement('div');
+  grid.className = 'gallery-grid';
+  const images = galleryData[key] || [];
+
+  images.forEach((src,i)=>{
+    const label = 'Design '+(i+1);
+    const card = document.createElement('div');
+    card.className = 'design-card';
+    card.addEventListener('click', ()=> openLightbox(src));
+    card.innerHTML = `
+      <div class="design-thumb">
+        <span class="software-tag">${softwareName}</span>
+        <img src="${src}" alt="${softwareName} ${label}" loading="lazy">
+        <div class="design-overlay">⤢</div>
+      </div>
+      <div class="design-meta">
+        <span class="name">${label}</span>
+        <span class="badge">${softwareName}</span>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  /* one open slot per category for future uploads */
+  const addCard = document.createElement('div');
+  addCard.className = 'design-card';
+  addCard.style.cursor = 'default';
+  addCard.innerHTML = `
+    <div class="design-thumb" style="cursor:default;">
+      <span class="software-tag">${softwareName}</span>
+      <span class="ph-icon">＋</span>
+    </div>
+    <div class="design-meta">
+      <span class="name">Design ${images.length+1}</span>
+      <span class="badge">awaiting upload</span>
+    </div>`;
+  grid.appendChild(addCard);
+
+  panel.appendChild(grid);
+});
+
+/* ---------- GALLERY TABS ---------- */
+document.querySelectorAll('#galleryTabs .tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#galleryTabs .tab-btn').forEach(b=> b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.gallery-panel').forEach(p=> p.classList.remove('active'));
+    document.getElementById('panel-'+btn.dataset.target).classList.add('active');
+  });
+});
+
+/* ---------- CERTIFICATE FILTERS ---------- */
+document.querySelectorAll('#certFilters .tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#certFilters .tab-btn').forEach(b=> b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('#certGrid .cert-card').forEach(card=>{
+      const show = filter === 'all' || card.dataset.cat === filter;
+      card.style.display = show ? '' : 'none';
+    });
+  });
+});
+
+</script>
+
+</body>
+</html>
